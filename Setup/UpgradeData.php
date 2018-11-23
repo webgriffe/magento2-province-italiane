@@ -1,39 +1,17 @@
 <?php
 namespace Vmasciotta\ProvinceItaliane\Setup;
 
-use Magento\Directory\Helper\Data;
-use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\UpgradeDataInterface;
 
-/**
- * @codeCoverageIgnore
- */
+
 class UpgradeData implements UpgradeDataInterface
 {
-    /**
-     * Directory data
-     *
-     * @var Data
-     */
-    private $directoryData;
-
-    /**
-     * Init
-     *
-     * @param Data $directoryData
-     */
-    public function __construct(Data $directoryData)
-    {
-        $this->directoryData = $directoryData;
-    }
-
-
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context): void
     {
         $setup->startSetup();
-        
+
         if (version_compare($context->getVersion(), '1.0.1') < 0) {
             $countryId = 'IT';
             $provinceToBeRemoved = "'CI', 'OT', 'VS', 'OG'";
@@ -62,7 +40,8 @@ class UpgradeData implements UpgradeDataInterface
                 $connection->insert($setup->getTable('directory_country_region_name'), $bind);
             }
 
-            $setup->endSetup();
         }
+
+        $setup->endSetup();
     }
 }
