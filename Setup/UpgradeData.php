@@ -33,9 +33,8 @@ class UpgradeData implements UpgradeDataInterface
     public function upgrade(ModuleDataSetupInterface $setup, ModuleContextInterface $context): void
     {
         $setup->startSetup();
-        if ($context->getVersion()
-            && version_compare($context->getVersion(), '1.0.1') < 0
-        ) {
+        
+        if (version_compare($context->getVersion(), '1.0.1') < 0) {
             $countryId = 'IT';
             $provinceToBeRemoved = "'CI', 'OT', 'VS', 'OG'";
             $provinceToBeAdded = ['SU' => 'Sud Sardegna'];
